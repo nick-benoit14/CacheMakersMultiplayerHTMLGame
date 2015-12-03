@@ -1,0 +1,29 @@
+<!Doctype>
+<html>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/world.js"></script>
+  <script src = "js/urlmanager.js"></script>
+  <script src="js/localplayer.js"></script>
+  <script>
+
+  var adj_pages = {     //push world data to DB
+  'top':'http://google.com', //save adjacent worlds in DB
+  'bottom':'http://google.com',
+  'left':'http://google.com',
+  'right':'http://google.com'};
+  var home_player = 'jack';
+  var active_player = 'nick';
+
+    var world = new World(adj_pages, home_player);
+    world.ProcessUrl();
+    world.AddLocalPlayer();
+    //world.SyncActivePlayers();
+    //world.RemoveLocalPlayer();
+
+
+    console.log(world);
+
+  </script>
+</html>
