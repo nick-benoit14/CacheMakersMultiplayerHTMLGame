@@ -6,6 +6,7 @@
   <script src="js/world.js"></script>
   <script src = "js/urlmanager.js"></script>
   <script src="js/localplayer.js"></script>
+  <script src="js/visitingplayer.js"></script>
   <script>
 
   $(document).ready(function(){
@@ -20,6 +21,7 @@
     var world = new World(adj_pages, home_player);
     world.ProcessUrl();
     world.AddLocalPlayer();
+    world.AddVisitingPlayer();
     //world.SyncActivePlayers();
 
 });

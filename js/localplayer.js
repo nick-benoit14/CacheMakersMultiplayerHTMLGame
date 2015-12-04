@@ -11,7 +11,7 @@ function LocalPlayer(id, home_url, current_world, db_ref){
 
   var bindings = [];
   bindings.push(function(player){$('body').keydown(function(e){ movePlayer(player.playerRef, e.which); });}); //We are both methods bound to local player!
-  bindings.push(function(){console.log("I'm a method bound to the local player");});
+  bindings.push(function(){$('body').click(function(){ console.log("I'm a method bound to the local player");});});
 
   var poll = function(){ //Send Position to DB, Detect Edges, Other Cool things
     console.log("Poll");

@@ -17,10 +17,10 @@ World.prototype.ProcessUrl = function(){
 
 World.prototype.GetPlayerInfo = function(){console.log("get player info");}
 World.prototype.AddLocalPlayer = function(){ var player = new LocalPlayer('jack', 'jack', 'jack', this.Db);}
-World.prototype.AddVisitingPlayer = function(){console.log("add visiting player");}
+World.prototype.AddVisitingPlayer = function(){var player = new VisitingPlayer('sonic', 'sonic', 'jack', this.Db);} //id, home_url, current_world, db_ref, bindings, poll
 
 
 World.prototype.SyncActivePlayers = function(){console.log("sync active players");}
 
 //GetPlayerInfo - get playerID if on home world, Process Url
-//SyncActivePlayer - Add players that have been added, remove players that have gone, 
+//SyncActivePlayer - Add players that have been added, remove players that have gone,
