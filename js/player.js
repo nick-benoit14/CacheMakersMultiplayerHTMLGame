@@ -1,4 +1,4 @@
-function Player(id, home_url, current_world, db_ref, bindings, poll){
+function Player(id, home_url, current_world, db_ref, callback,  bindings, poll){
   var WORLDS = "worlds4", PLAYERS = "players";
 
   this.Id = "";
@@ -9,6 +9,7 @@ function Player(id, home_url, current_world, db_ref, bindings, poll){
   this.pollRef, this.pollInt = 200;
   this.playerRef;
   this.Db = db_ref;
+  this.Callback = callback;
   this.Players = PLAYERS;
   this.Worlds = WORLDS;
 
@@ -39,7 +40,7 @@ function Player(id, home_url, current_world, db_ref, bindings, poll){
 
  this.AddSelf(this); // Create Self
 }
-
+Player.prototype.RemoveSelf = function(player){player.playerRef.remove();}
 Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
 
   var Bind = function(player){ //Bind eventListeners and SetPlayer Interval
@@ -50,6 +51,8 @@ Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
       player.mandatoryPoll(player);
       player.Poll();
     }, player.pollInt);
+
+    if(typeof player.Callback == "function") player.Callback(player);
   }
 
 

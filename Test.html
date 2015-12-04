@@ -4,7 +4,7 @@
   <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
   <script src="js/player.js"></script>
   <script src="js/world.js"></script>
-  <script src = "js/urlmanager.js"></script>
+  <script src ="js/urlmanager.js"></script>
   <script src="js/localplayer.js"></script>
   <script src="js/visitingplayer.js"></script>
   <script>
@@ -15,6 +15,7 @@
   'bottom':'http://google.com',
   'left':'http://google.com',
   'right':'http://google.com'};
+
   var home_player = 'jack';
   var active_player = 'jack';
 
@@ -22,7 +23,15 @@
     world.ProcessUrl();
     world.AddLocalPlayer();
     world.AddVisitingPlayer();
-    //world.SyncActivePlayers();
+    world.SyncActivePlayers();
+
+    console.log(world.Players);
+
+    //TODO
+    //  World
+    //    Find ActivePlayer
+    //    Sync Players - Locations, Number Players
+    // Player - Get Position
 
 });
   </script>

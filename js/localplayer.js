@@ -1,4 +1,4 @@
-function LocalPlayer(id, home_url, current_world, db_ref){
+function LocalPlayer(id, home_url, current_world, db_ref, callback){
 
   var movePlayer = function(player, key){
     var left = player.css('left');
@@ -13,13 +13,11 @@ function LocalPlayer(id, home_url, current_world, db_ref){
   bindings.push(function(player){$('body').keydown(function(e){ movePlayer(player.playerRef, e.which); });}); //We are both methods bound to local player!
   bindings.push(function(){$('body').click(function(){ console.log("I'm a method bound to the local player");});});
 
-  var poll = function(){ //Send Position to DB, Detect Edges, Other Cool things
-    console.log("Poll");
-  }
+  var poll = function(){/* console.log("Poll"); //Send Position to DB, Detect Edges, Other Cool things */}
 
 
 
-  Player.call(this, id, home_url, current_world, db_ref, bindings, poll); // Add actions to bind to Player
+  Player.call(this, id, home_url, current_world, db_ref, callback,  bindings, poll); // Add actions to bind to Player
 }
 
 LocalPlayer.prototype = Object.create(Player.prototype);

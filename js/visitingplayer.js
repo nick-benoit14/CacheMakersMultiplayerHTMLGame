@@ -1,4 +1,4 @@
-function VisitingPlayer(id, home_url, current_world, db_ref){
+function VisitingPlayer(id, home_url, current_world, db_ref, callback){
 
 
 
@@ -11,7 +11,7 @@ function VisitingPlayer(id, home_url, current_world, db_ref){
 
 
 
-  Player.call(this, id, home_url, current_world, db_ref, bindings, poll); // Add actions to bind to Player
+  Player.call(this, id, home_url, current_world, db_ref, callback,  bindings, poll); // Add actions to bind to Player
 }
 
 VisitingPlayer.prototype = Object.create(Player.prototype);
