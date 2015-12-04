@@ -1,4 +1,4 @@
-function LocalPlayer(id, home_url, db_ref){
+function LocalPlayer(id, home_url, current_world, db_ref){
 
 
 
@@ -11,7 +11,7 @@ function LocalPlayer(id, home_url, db_ref){
     console.log("Poll");
   }
 
-  Player.call(this, id, home_url, db_ref, bindings, poll); // Add actions to bind to Player
+  Player.call(this, id, home_url, current_world, db_ref, bindings, poll); // Add actions to bind to Player
 }
 
 

@@ -17,13 +17,7 @@ World.prototype.ProcessUrl = function(){
 }
 
 World.prototype.AddLocalPlayer = function(){
-
-
-  //var player = new LocalPlayer('jack', 'jack', this.Db);
-  var player = new LocalPlayer('jack', 'jack', this.Db);
-  console.log(player);
-  //if on home world push sprite url
-  //create new local player
+  var player = new LocalPlayer('jack', 'jack', 'jack', this.Db);
 }
 
 
