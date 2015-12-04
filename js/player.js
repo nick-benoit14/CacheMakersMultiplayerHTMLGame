@@ -28,9 +28,9 @@ function Player(id, home_url, current_world, db_ref, callback,  bindings, poll){
         clearInterval(player.pollRef);
         player.Db.child(player.Worlds).child(player.currentWorld).child('active_players').child(player.Id).set(null);}
       else console.log("Not Valid Player");
-    });}
+    });
+  }
     this.mandatoryBind.push(removeSelf); //Add remove self from script
-
  var updateDb = function(player){
    var playerstring = '{"' + player.Id + '": {"position": {"top":"'+ player.playerRef.css('top') + '", "left":"'+ player.playerRef.css('left') + '"}, "name":"' + player.Id + '"}}';
    var obj = JSON.parse(playerstring);
@@ -44,7 +44,7 @@ Player.prototype.RemoveSelf = function(player){player.playerRef.remove();}
 Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
 
   var Bind = function(player){ //Bind eventListeners and SetPlayer Interval
-    for(i = 0; i < player.Bindings.length; i++){if(typeof player.mandatoryBind[i] == "function")player.mandatoryBind[i](player);}
+    for(i = 0; i < player.mandatoryBind.length; i++){if(typeof player.mandatoryBind[i] == "function") player.mandatoryBind[i](player);}
     for(i = 0; i < player.Bindings.length; i++){player.Bindings[i](player);}
 
     player.pollRef = setInterval(function(){

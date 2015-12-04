@@ -20,18 +20,12 @@
   var active_player = 'jack';
 
     var world = new World(adj_pages, home_player);
+
     world.ProcessUrl();
     world.AddLocalPlayer();
-    world.AddVisitingPlayer();
+
     world.SyncActivePlayers();
-
-    console.log(world.Players);
-
-    //TODO
-    //  World
-    //    Find ActivePlayer
-    //    Sync Players - Locations, Number Players
-    // Player - Get Position
+    world.AddVisitingPlayer();
 
 });
   </script>

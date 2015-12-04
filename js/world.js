@@ -1,10 +1,13 @@
 
 function World(adjacent_worlds, home_player, active_player){
+  this.WORLDS = "worlds4", this.PLAYERS = "players";
+
   this.adjacentWorlds = {};
   this.homePlayer = "";
   this.activePlayer = "";
   this.Db = new Firebase("https://shining-torch-8736.firebaseio.com/");
   this.Players = [];
+  this.pollRef, this.pollInt = 200;
 
   if(typeof adjacent_worlds != undefined) this.adjacentWorlds = adjacent_worlds;
   if(typeof homePlayer != undefined) this.homePlayer = home_player;
@@ -30,8 +33,34 @@ World.prototype.AddVisitingPlayer = function(){
 
 World.prototype.SyncActivePlayers = function(){
   console.log("sync active players");
-  var getActivePlayers = function(){}
-  var comparePlayers = function(){}
+  var worldRef = this;
+
+  this.Db.child(this.WORLDS).child(this.homePlayer).on('value', function(snapshot){Route(snapshot, worldRef);}); //Listen for Data Change
+
+
+  var Route = function(snapshot, world){
+    /*
+    var newLength = 0;
+    if(typeof snapshot !== 'undefined') newLength = Object.keys(snapshot.val().active_players).length;
+    var Length = world.Players.length;
+
+    if(newLength < Length){
+      console.log("new length: " + newLength)
+      console.log("Remove Player");
+    }
+    else if(newLength > Length){
+      console.log("new length: " + newLength)
+      console.log("Add Player");
+    }
+    else console.log("Data has been return unchanged");
+    */
+  }
+
+  var removePlayer = function(){}
+  var addPlayer = function(){}
+
+
+  //setInterval(dataChanged(this), this.pollInt)
 }
 
 //GetPlayerInfo - get playerID if on home world, Process Url
