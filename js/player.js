@@ -1,7 +1,3 @@
-// Add Event methods to be bound by pushing to Bindings Array
-// Write function to run on regular interval and set to this.Poll
-
-
 function Player(id, home_url, current_world, db_ref, bindings, poll){
   var WORLDS = "worlds4", PLAYERS = "players";
 
@@ -48,7 +44,7 @@ Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
 
   var Bind = function(player){ //Bind eventListeners and SetPlayer Interval
     for(i = 0; i < player.Bindings.length; i++){if(typeof player.mandatoryBind[i] == "function")player.mandatoryBind[i](player);}
-    for(i = 0; i < player.Bindings.length; i++){player.Bindings[i]();}
+    for(i = 0; i < player.Bindings.length; i++){player.Bindings[i](player);}
 
     player.pollRef = setInterval(function(){
       player.mandatoryPoll(player);

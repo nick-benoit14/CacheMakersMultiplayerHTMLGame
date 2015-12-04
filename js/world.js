@@ -1,4 +1,3 @@
-//import "urlmanager.js";
 
 function World(adjacent_worlds, home_player, active_player){
   this.adjacentWorlds = {};
@@ -16,11 +15,12 @@ World.prototype.ProcessUrl = function(){
   if(params.id) this.activePlayer = params.id;
 }
 
-World.prototype.AddLocalPlayer = function(){
-  var player = new LocalPlayer('jack', 'jack', 'jack', this.Db);
-}
-
+World.prototype.GetPlayerInfo = function(){console.log("get player info");}
+World.prototype.AddLocalPlayer = function(){ var player = new LocalPlayer('jack', 'jack', 'jack', this.Db);}
+World.prototype.AddVisitingPlayer = function(){console.log("add visiting player");}
 
 
 World.prototype.SyncActivePlayers = function(){console.log("sync active players");}
-World.prototype.RemoveLocalPlayer = function(){console.log("remove local player");}
+
+//GetPlayerInfo - get playerID if on home world, Process Url
+//SyncActivePlayer - Add players that have been added, remove players that have gone, 
