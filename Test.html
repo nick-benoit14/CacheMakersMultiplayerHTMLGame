@@ -25,7 +25,11 @@
     world.AddLocalPlayer();
 
     world.SyncActivePlayers();
-    world.AddVisitingPlayer();
+    //world.AddVisitingPlayer();
+    $('body').click(function(){
+      console.log("added visiting player");
+      world.AddVisitingPlayer();
+    });
 
 });
   </script>

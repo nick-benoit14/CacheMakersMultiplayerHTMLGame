@@ -35,32 +35,20 @@ World.prototype.SyncActivePlayers = function(){
   console.log("sync active players");
   var worldRef = this;
 
-  this.Db.child(this.WORLDS).child(this.homePlayer).on('value', function(snapshot){Route(snapshot, worldRef);}); //Listen for Data Change
+  this.Db.child(this.WORLDS).child(this.homePlayer).child('active_players').on('child_added', function(snapshot){AddPlayer(snapshot, worldRef);}); //Listen for Data Change
+  this.Db.child(this.WORLDS).child(this.homePlayer).child('active_players').on('child_removed', function(snapshot){RemovePlayer(snapshot, worldRef);}); //Listen for Data Change
 
-
-  var Route = function(snapshot, world){
-    /*
-    var newLength = 0;
-    if(typeof snapshot !== 'undefined') newLength = Object.keys(snapshot.val().active_players).length;
-    var Length = world.Players.length;
-
-    if(newLength < Length){
-      console.log("new length: " + newLength)
-      console.log("Remove Player");
+  var RemovePlayer = function(snapshot, world){
+    for(i = 0; i < world.Players.length; i++){
+      if(world.Players[i].Id == snapshot.val().name){
+        world.Players[i].RemoveSelf(world.Players[i]);
+        world.Players.splice(i,1);
+      }
     }
-    else if(newLength > Length){
-      console.log("new length: " + newLength)
-      console.log("Add Player");
-    }
-    else console.log("Data has been return unchanged");
-    */
   }
 
-  var removePlayer = function(){}
-  var addPlayer = function(){}
+  var AddPlayer = function(){}
 
-
-  //setInterval(dataChanged(this), this.pollInt)
 }
 
 //GetPlayerInfo - get playerID if on home world, Process Url

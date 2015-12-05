@@ -40,7 +40,10 @@ function Player(id, home_url, current_world, db_ref, callback,  bindings, poll){
 
  this.AddSelf(this); // Create Self
 }
-Player.prototype.RemoveSelf = function(player){player.playerRef.remove();}
+Player.prototype.RemoveSelf = function(player){
+  clearInterval(player.pollRef);
+  player.playerRef.remove();
+}
 Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
 
   var Bind = function(player){ //Bind eventListeners and SetPlayer Interval
