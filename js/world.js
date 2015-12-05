@@ -25,8 +25,9 @@ World.prototype.AddLocalPlayer = function(){
   this.Players.push(player);
 }
 
-World.prototype.AddVisitingPlayer = function(){
-  var player = new VisitingPlayer('sonic', 'sonic', 'jack', this.Db, function(player){}); //id, home_url, current_world, db_ref, bindings, poll
+//id, home_url, current_world, db_ref, callback,  bindings, poll
+World.prototype.AddVisitingPlayer = function(id, home_url, current_world, db_ref, callback, bindings, poll){
+  var player = new VisitingPlayer(id, home_url, current_world, db_ref, callback, bindings, poll);
   this.Players.push(player);
 }
 
@@ -43,11 +44,20 @@ World.prototype.SyncActivePlayers = function(){
       if(world.Players[i].Id == snapshot.val().name){
         world.Players[i].RemoveSelf(world.Players[i]);
         world.Players.splice(i,1);
-      }
-    }
-  }
+      }}}
 
-  var AddPlayer = function(){}
+  var AddPlayer = function(snapshot, world){
+    if(snapshot.exists()){
+      var data = snapshot.val();
+      for(i = 0; i < world.Players.length; i++){ //Check to see if player already exists
+        if(world.Players[i].Id == data.name){
+           console.log("Player Already Exists: " + data.name);
+           return; //Player already exists
+        }}
+
+      var id = snapshot.val().name, home_url = undefined, current_world = world.homePlayer;
+      world.AddVisitingPlayer(id, home_url, current_world, world.Db);
+    }else console.log("Not Connecting to Database");}
 
 }
 
