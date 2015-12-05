@@ -50,7 +50,7 @@ World.prototype.SyncActivePlayers = function(){
   this.Db.child(this.WORLDS).child(this.homePlayer).child('active_players').on('child_added', function(snapshot){AddPlayer(snapshot, worldRef);}); //Listen for Data Change
   this.Db.child(this.WORLDS).child(this.homePlayer).child('active_players').on('child_removed', function(snapshot){RemovePlayer(snapshot, worldRef);}); //Listen for Data Change
 
-  var RemovePlayer = function(snapshot, world){
+  var RemovePlayer = function(snapshot, world){    
     for(i = 0; i < world.Players.length; i++){
       if(world.Players[i].Id == snapshot.val().name){
         world.Players[i].RemoveSelf(world.Players[i]);
