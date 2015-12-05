@@ -1,4 +1,4 @@
-function LocalPlayer(id, home_url, current_world, db_ref, callback){
+function LocalPlayer(id, home_world, current_world, db_ref, callback){
 
   var movePlayer = function(player, key){
     var left = player.css('left');
@@ -8,16 +8,23 @@ function LocalPlayer(id, home_url, current_world, db_ref, callback){
     if(key == 38)player.css('top', parseInt(top) - 10);
     if(key == 40)player.css('top', parseInt(top) + 10);}
 
+  var updateDb = function(player){
+    var playerstring = '{"' + player.Id + '": {"position": {"top":"'+ player.playerRef.css('top') + '", "left":"'+ player.playerRef.css('left') + '"}, "name":"' + player.Id + '"}}';
+    var obj = JSON.parse(playerstring);
+    player.Db.child(player.Worlds).child(player.currentWorld).child("active_players").update(obj);}
+
 
   var bindings = [];
   bindings.push(function(player){$('body').keydown(function(e){ movePlayer(player.playerRef, e.which); });}); //We are both methods bound to local player!
   bindings.push(function(){$('body').click(function(){ console.log("I'm a method bound to the local player");});});
 
-  var poll = function(){/* console.log("Poll"); //Send Position to DB, Detect Edges, Other Cool things */}
+  var poll = function(player){
+    updateDb(player);
+  }
 
 
 
-  Player.call(this, id, home_url, current_world, db_ref, callback,  bindings, poll); // Add actions to bind to Player
+  Player.call(this, id, home_world, current_world, db_ref, callback,  bindings, poll); // Add actions to bind to Player
 }
 
 LocalPlayer.prototype = Object.create(Player.prototype);

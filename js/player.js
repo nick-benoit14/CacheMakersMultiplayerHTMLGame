@@ -1,8 +1,7 @@
-function Player(id, home_url, current_world, db_ref, callback,  bindings, poll){
+function Player(id, home_world, current_world, db_ref, callback,  bindings, poll){
   var WORLDS = "worlds4", PLAYERS = "players";
-
   this.Id = "";
-  this.homeUrl = "";
+  this.homeWorld = "";
   this.currentWorld = "";
   this.Bindings = [];
   this.Poll = function(){}
@@ -17,7 +16,7 @@ function Player(id, home_url, current_world, db_ref, callback,  bindings, poll){
   this.mandatoryBind = []; //All Players do this
 
   if(typeof id != undefined) this.Id = id;
-  if(typeof home_url != undefined) this.homeUrl = home_url;
+  if(typeof home_url != undefined) this.homeWorld = home_world;
   if(typeof current_world != undefined) this.currentWorld = current_world;
   if(typeof bindings != undefined) this.Bindings = bindings;
   if(typeof poll != undefined) this.Poll = poll;
@@ -31,12 +30,10 @@ function Player(id, home_url, current_world, db_ref, callback,  bindings, poll){
     });
   }
     this.mandatoryBind.push(removeSelf); //Add remove self from script
- var updateDb = function(player){
-   var playerstring = '{"' + player.Id + '": {"position": {"top":"'+ player.playerRef.css('top') + '", "left":"'+ player.playerRef.css('left') + '"}, "name":"' + player.Id + '"}}';
-   var obj = JSON.parse(playerstring);
-   player.Db.child(player.Worlds).child(player.currentWorld).child("active_players").update(obj);}
- this.mandatoryPoll = updateDb; //add UpdateDb to all Players
 
+ /*
+ this.mandatoryPoll = function(){}; //add Polling Method
+*/
 
  this.AddSelf(this); // Create Self
 }
@@ -52,7 +49,7 @@ Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
 
     player.pollRef = setInterval(function(){
       player.mandatoryPoll(player);
-      player.Poll();
+      player.Poll(player);
     }, player.pollInt);
 
     if(typeof player.Callback == "function") player.Callback(player);
@@ -72,7 +69,11 @@ Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
 
 
   if(player){
-    if(player.currentWorld == player.homeUrl){ //If on home world then send data to DB
+    if(player.currentWorld === player.homeWorld){ //If on home world then send data to DB
+      console.log("Sending Data " + player.Id);
+      console.log(player.currentWorld);
+      console.log(player.homeWorld);
+
       var playerstring = '{"' + player.Id + '": { "name":"' + player.Id + '", "sprite_url":"' + $('#'+player.Id).attr('src') + '"}}';
       var obj = JSON.parse(playerstring);
       player.Db.child(player.Players).update(obj);

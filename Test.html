@@ -21,16 +21,15 @@
 
     var world = new World(adj_pages, home_player);
 
-    world.ProcessUrl();
-    world.AddLocalPlayer();
-
+    world.Init();
     world.SyncActivePlayers();
-    //world.AddVisitingPlayer();
+
+    //Trackign Down updating sprite url location on vising world
 
   });
   </script>
   <body>
-    <img src="include/link.png" id="jack" style="left:100px; top:100px; position:absolute;">
+    <img src="include/link.png" id="jack" class="cacheMakersPlayer" style="left:100px; top:100px; position:absolute;">
     <h1>Cache Makers HTML Game</h1>
   </body>
 </html>
