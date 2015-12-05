@@ -1,4 +1,4 @@
-function Player(id, home_world, current_world, db_ref, callback,  bindings, poll){
+function Player(id, home_world, current_world, db_ref, world_ref, callback,  bindings, poll){
   var WORLDS = "worlds4", PLAYERS = "players";
   this.Id = "";
   this.homeWorld = "";
@@ -8,6 +8,7 @@ function Player(id, home_world, current_world, db_ref, callback,  bindings, poll
   this.pollRef, this.pollInt = 200;
   this.playerRef;
   this.Db = db_ref;
+  this.worldRef;
   this.Callback = callback;
   this.Players = PLAYERS;
   this.Worlds = WORLDS;
@@ -20,6 +21,7 @@ function Player(id, home_world, current_world, db_ref, callback,  bindings, poll
   if(typeof current_world != undefined) this.currentWorld = current_world;
   if(typeof bindings != undefined) this.Bindings = bindings;
   if(typeof poll != undefined) this.Poll = poll;
+  if(typeof world_ref != undefined) this.worldRef = world_ref;
 
   var removeSelf = function(player){
     $(window).on('beforeunload', function(){
@@ -35,17 +37,17 @@ function Player(id, home_world, current_world, db_ref, callback,  bindings, poll
  this.mandatoryPoll = function(){}; //add Polling Method
 */
 
- this.AddSelf(this); // Create Self
+ this.AddSelf(this, this.worldRef); // Create Self
 }
 Player.prototype.RemoveSelf = function(player){
   clearInterval(player.pollRef);
   player.playerRef.remove();
 }
-Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
+Player.prototype.AddSelf = function(player, world){  //Append Sprite, Bind Bindings
 
   var Bind = function(player){ //Bind eventListeners and SetPlayer Interval
-    for(i = 0; i < player.mandatoryBind.length; i++){if(typeof player.mandatoryBind[i] == "function") player.mandatoryBind[i](player);}
-    for(i = 0; i < player.Bindings.length; i++){player.Bindings[i](player);}
+    for(i = 0; i < player.mandatoryBind.length; i++){if(typeof player.mandatoryBind[i] == "function") player.mandatoryBind[i](player, world);}
+    for(i = 0; i < player.Bindings.length; i++){player.Bindings[i](player, world);}
 
     player.pollRef = setInterval(function(){
       player.mandatoryPoll(player);
@@ -56,14 +58,14 @@ Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
   }
 
 
-  var AppendSprite = function(sprite_url, player, location){ //Add sprite to page and bind methods
+  var AppendSprite = function(sprite_url, player, world, location){ //Add sprite to page and bind methods
     var Location = {left:"0", top:"0"};
     if(location) Location = location; //Optional Location
     if(sprite_url && player){
       var imgString = '<img src = "' + sprite_url + '" id="' + player.Id + '"  class="cacheMakersPlayer"  style="left:' + Location.left + 'px; top:' + Location.top +'px; position:absolute;">'
       $('body').append(imgString);
       player.playerRef = $('#'+player.Id);
-      Bind(player);
+      Bind(player, world);
     } else console.log("Invalid Sprite Data");
   }
 
@@ -74,13 +76,13 @@ Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
       var obj = JSON.parse(playerstring);
       player.Db.child(player.Players).update(obj);
       player.playerRef = $('#'+player.Id);
-      Bind(player);
+      Bind(player, world);
     }
     else{ //If visiting world then fetch data
       player.Db.child(player.Players).child(player.Id).once('value', function(snapshot){
         if(snapshot.exists()){
           var sprite_url = snapshot.val().sprite_url;
-          if(sprite_url) AppendSprite(sprite_url, player);
+          if(sprite_url) AppendSprite(sprite_url, player, world);
           else console.log("Sprite Not Found In Database");
         }
         else console.log("Player Not Found In Database");

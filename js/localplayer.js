@@ -1,4 +1,4 @@
-function LocalPlayer(id, home_world, current_world, db_ref, callback, bindings, poll){
+function LocalPlayer(id, home_world, current_world, db_ref, world_ref, callback, bindings, poll){
 
   if(!bindings) bindings = [];
 
@@ -24,7 +24,7 @@ function LocalPlayer(id, home_world, current_world, db_ref, callback, bindings, 
     updateDb(player);
   }
 
-  Player.call(this, id, home_world, current_world, db_ref, callback,  bindings, poll); // Add actions to bind to Player
+  Player.call(this, id, home_world, current_world, db_ref, world_ref, callback,  bindings, poll); // Add actions to bind to Player
 }
 
 LocalPlayer.prototype = Object.create(Player.prototype);

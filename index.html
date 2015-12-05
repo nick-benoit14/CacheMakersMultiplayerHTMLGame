@@ -13,6 +13,16 @@
 
     var playerFunctions = []; //Array to store all of our player functions
 
+    var teleport = function(player, world){ //Write a funciton to let you explore other worlds!
+      var left = player.playerRef.css('left');
+      var top = player.playerRef.css('top');
+
+      if(parseInt(left) < 0) world.ChangeWorld('left');
+      else if(parseInt(left) > $('body').width()) world.changeWorld('right');
+      else if(parseInt(top) < 0) world.ChangeWorld('top');
+      else if(parseInt(top) > $('body').width()) world.changeWorld('bottom');
+    }
+
     var movePlayer = function(player, key){ //Function to move player
       var left = player.css('left');
       var top = player.css('top');
@@ -22,21 +32,17 @@
       if(key == 40)player.css('top', parseInt(top) + 10);
     }
 
-    var teleport = function(player){ //Write a funciton to let you explore other worlds!
-      var left = player.playerRef.css('left');
-      var top = player.playerRef.css('top');
-
-    }
 
 
-    playerFunctions[0] = function(player){ //Add move function to array of player functions
 
+    playerFunctions[0] = function(player, world){ //Add move function to array of player functions
       $('body').keydown(function(e){ //When key gets pressed
-
         movePlayer(player.playerRef, e.which); //move the player
-
+        teleport(player, world);
       });
     }
+
+
 
 
   var neighborWorlds = {     //Worlds I want to be my neighbors
