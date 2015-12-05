@@ -1,0 +1,60 @@
+<!Doctype>
+<html>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/world.js"></script>
+  <script src ="js/urlmanager.js"></script>
+  <script src="js/localplayer.js"></script>
+  <script src="js/visitingplayer.js"></script>
+  <script>
+
+  $(document).ready(function(){
+
+    var playerFunctions = []; //Array to store all of our player functions
+
+    var movePlayer = function(player, key){ //Function to move player
+      var left = player.css('left');
+      var top = player.css('top');
+      if(key == 37)player.css('left', parseInt(left) - 10);
+      if(key == 39)player.css('left', parseInt(left) + 10);
+      if(key == 38)player.css('top', parseInt(top) - 10);
+      if(key == 40)player.css('top', parseInt(top) + 10);
+    }
+
+    var teleport = function(player){ //Write a funciton to let you explore other worlds!
+      var left = player.playerRef.css('left');
+      var top = player.playerRef.css('top');
+
+    }
+
+
+    playerFunctions[0] = function(player){ //Add move function to array of player functions
+
+      $('body').keydown(function(e){ //When key gets pressed
+
+        movePlayer(player.playerRef, e.which); //move the player
+
+      });
+    }
+
+
+  var neighborWorlds = {     //Worlds I want to be my neighbors
+  'top':'http://google.com',
+  'bottom':'http://google.com',
+  'left':'http://google.com',
+  'right':'http://google.com'};
+
+    var myName = 'nick';
+    var world = new World(neighborWorlds, myName);
+
+    world.Init(playerFunctions);
+
+  });
+  </script>
+  <body>
+    <!-- img ID must be the same as the name you passed to your world -->
+    <img src="include/link.png" id="nick" class="cacheMakersPlayer" style="left:100px; top:100px; position:absolute;">
+    <h1>Cache Makers HTML Game</h1>
+  </body>
+</html>

@@ -70,10 +70,6 @@ Player.prototype.AddSelf = function(player){  //Append Sprite, Bind Bindings
 
   if(player){
     if(player.currentWorld === player.homeWorld){ //If on home world then send data to DB
-      console.log("Sending Data " + player.Id);
-      console.log(player.currentWorld);
-      console.log(player.homeWorld);
-
       var playerstring = '{"' + player.Id + '": { "name":"' + player.Id + '", "sprite_url":"' + $('#'+player.Id).attr('src') + '"}}';
       var obj = JSON.parse(playerstring);
       player.Db.child(player.Players).update(obj);

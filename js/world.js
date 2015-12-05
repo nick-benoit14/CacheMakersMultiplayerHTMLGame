@@ -13,6 +13,14 @@ function World(adjacent_worlds, home_player){
   if(typeof homePlayer != undefined) this.homePlayer = home_player;
 }
 
+World.prototype.ChangeWorld = function(direction){
+  if(direction == 'top'){window.location.assign(this.adjacentWorlds.top);}
+  else if(direction == 'bottom'){window.location.assign(this.adjacentWorlds.bottom);}
+  else if(direction == 'right'){window.location.assign(this.adjacentWorlds.right);}
+  else if(direction == 'left'){window.location.assign(this.adjacentWorlds.left);}
+  else console.log("Not Valid Direction");
+}
+
 
 World.prototype.AddLocalPlayer = function(id, home_url, current_world, db_ref, callback, bindings, poll){
   var player = new LocalPlayer(id, home_url, current_world, db_ref, callback, bindings, poll);
@@ -24,14 +32,15 @@ World.prototype.AddVisitingPlayer = function(id, home_url, current_world, db_ref
   this.Players.push(player);
 }
 
-World.prototype.Init = function(){ //set active player, Add Local Player
+World.prototype.Init = function(bindings){ //set active player, Add Local Player
   var params = UrlManager.getUrlParam();
-
-
   if(params.id){this.activePlayer = params.id;}
   else{this.activePlayer = $('.cacheMakersPlayer').attr('id');}
-  $('.cacheMakersPlayer').each(function(){$(this).remove();}); 
-  this.AddLocalPlayer(this.activePlayer, undefined, this.homePlayer, this.Db);
+  $('.cacheMakersPlayer').each(function(){$(this).remove();});
+  this.AddLocalPlayer(this.activePlayer, undefined, this.homePlayer, this.Db, undefined, bindings);
+
+  UrlManager.addUrlParams(this.adjacentWorlds, {id:this.activePlayer});
+  this.SyncActivePlayers();
 }
 
 
@@ -59,5 +68,4 @@ World.prototype.SyncActivePlayers = function(){
       var id = snapshot.val().name, home_url = undefined, current_world = world.homePlayer;
       world.AddVisitingPlayer(id, home_url, current_world, world.Db);
     }else console.log("Not Connecting to Database");}
-
 }
