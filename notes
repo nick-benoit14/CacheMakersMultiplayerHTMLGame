@@ -1,0 +1,9 @@
+12/5/15
+
+World:
+  //TODO: When player leaves page, both players are returned and then get removed
+
+Player:
+  //TODO: Add sprite sheet?
+  //TODO: Add player destinations
+  

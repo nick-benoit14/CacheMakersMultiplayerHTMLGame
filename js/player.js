@@ -39,10 +39,12 @@ function Player(id, home_world, current_world, db_ref, world_ref, callback,  bin
 
  this.AddSelf(this, this.worldRef); // Create Self
 }
+
 Player.prototype.RemoveSelf = function(player){
   clearInterval(player.pollRef);
   player.playerRef.remove();
 }
+
 Player.prototype.AddSelf = function(player, world){  //Append Sprite, Bind Bindings
 
   var Bind = function(player){ //Bind eventListeners and SetPlayer Interval
