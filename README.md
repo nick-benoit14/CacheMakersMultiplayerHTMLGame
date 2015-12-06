@@ -32,20 +32,14 @@ Checkout index.html for a more full example
 
 For a semi-working example checkout: 
   First Open: 
-  http://human-resource-manager-harry-70771.bitballoon.com/
+  http://receptionist-badger-43141.bitballoon.com/
   
   Then Open: 
-  http://burser-chimpanzee-85128.bitballoon.com/
+  http://superintendant-wines-78334.bitballoon.com/
   
-  Then on the second page click any of the arrows. This will take you to another players world. 
-  Take a good look around and enjoy the worksmanship of your fellow MMO-ers. 
+  If you travel to the edge of the page then you will travel to the neighboring page. 
+  Check it out. 
   
-  As of 11/29/15 - If you go back to the first page, you will notice both players, but on the page where link is the
-  character you can only see yourself. So go back to: 
-  
-  http://human-resource-manager-harry-70771.bitballoon.com/
-  
-  and enjoy both players being there while I work out the kinks. 
   
   Developed for Cache Makers in Logan, Utah, USA 
   http://cachemakers.com/
